@@ -18,12 +18,6 @@ const convertirArchivo = (req, res) => {
     const archivoSubido = req.file.path;
     const nombrePDF = await convertirDocxAPdf(archivoSubido);
 
-    fs.unlink(archivoSubido, (unlinkErr) => {
-      if (unlinkErr) {
-        console.warn("No se pudo eliminar el archivo temporal:", unlinkErr.message);
-      }
-    });
-
 
     return res.json({
       mensaje: "Archivo convertido correctamente",
