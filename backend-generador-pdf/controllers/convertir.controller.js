@@ -15,12 +15,6 @@ const convertirArchivo = (req, res) => {
       });
     }
 
-    if (!req.file) {
-      return res.status(400).json({
-        mensaje: MESSAGES.UPLOAD.NO_FILE
-      });
-    }
-
     const archivoSubido = req.file.path;
 
     try {
@@ -58,12 +52,6 @@ const convertirArchivo = (req, res) => {
 const mostrarDescarga = (req, res) => {
 
   const nombreArchivo = req.query.archivo;
-
-  if (!nombreArchivo) {
-    return res.status(400).json({
-      mensaje: MESSAGES.DOWNLOAD.NO_FILE
-    });
-  }
 
   const rutaArchivo = path.resolve("output", nombreArchivo);
 

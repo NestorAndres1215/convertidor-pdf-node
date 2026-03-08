@@ -17,7 +17,6 @@ function ejecutarPowerShell(inputPath, outputPath) {
 }
 
 async function convertirDocxAPdf(rutaDocx) {
-  try {
 
     const outputDir = path.resolve("output");
     await fs.mkdir(outputDir, { recursive: true });
@@ -28,9 +27,7 @@ async function convertirDocxAPdf(rutaDocx) {
     await ejecutarPowerShell(path.resolve(rutaDocx), rutaSalida);
 
     return nombrePDF;
-  } catch (error) {
-    throw new Error(`Error al convertir el archivo: ${error.message}`);
-  }
+
 }
 
 module.exports = { convertirDocxAPdf };
