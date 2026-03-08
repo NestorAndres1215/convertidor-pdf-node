@@ -1,4 +1,4 @@
-// src/utils/messages.js
+
 const MESSAGES = {
   UPLOAD: {
     NO_FILE: "No se subió ningún archivo.",

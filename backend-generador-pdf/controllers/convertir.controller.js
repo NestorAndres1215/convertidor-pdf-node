@@ -16,34 +16,22 @@ const convertirArchivo = (req, res) => {
     }
 
     const archivoSubido = req.file.path;
+    const nombrePDF = await convertirDocxAPdf(archivoSubido);
 
-    try {
+    fs.unlink(archivoSubido, (unlinkErr) => {
+      if (unlinkErr) {
+        console.warn("No se pudo eliminar el archivo temporal:", unlinkErr.message);
+      }
+    });
 
-      const nombrePDF = await convertirDocxAPdf(archivoSubido);
 
-      fs.unlink(archivoSubido, (unlinkErr) => {
-        if (unlinkErr) {
-          console.warn("No se pudo eliminar el archivo temporal:", unlinkErr.message);
-        }
-      });
+    return res.json({
+      mensaje: "Archivo convertido correctamente",
+      archivo: nombrePDF,
+      url: `/output/${nombrePDF}`
+    });
 
-  
-      return res.json({
-        mensaje: "Archivo convertido correctamente",
-        archivo: nombrePDF,
-        url: `/output/${nombrePDF}`
-      });
 
-    } catch (error) {
-
-      fs.unlink(archivoSubido, () => {});
-
-      return res.status(500).json({
-        mensaje: MESSAGES.CONVERT.ERROR,
-        detalle: error.message
-      });
-
-    }
 
   });
 
