@@ -1,0 +1,27 @@
+<form id="formulario">
+    <input type="file" name="archivo" required />
+
+    <button type="submit"> Convertir archivo </button>
+</form>
+
+<div id="resultado"></div>
+
+<script>
+    const form = document.getElementById("formulario");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        const res = await fetch("http://localhost:3000/convertir", {
+            method: "POST",
+            body: formData,
+        });
+
+        const data = await res.json();
+
+        document.getElementById("resultado").innerHTML =
+            `<a href="http://localhost:3000${data.url}" target="_blank">Descargar archivo</a>`;
+    });
+</script>

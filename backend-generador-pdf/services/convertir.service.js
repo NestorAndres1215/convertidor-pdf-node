@@ -1,11 +1,8 @@
-// src/services/convertir.service.js
 const fs = require("fs/promises");
 const path = require("path");
 const { exec } = require("child_process");
 
-// ========================================
-// FUNCIONES AUXILIARES
-// ========================================
+
 function ejecutarPowerShell(inputPath, outputPath) {
   return new Promise((resolve, reject) => {
     const comando = `powershell -ExecutionPolicy Bypass -File "${path.resolve("convert.ps1")}" -inputPath "${inputPath}" -outputPath "${outputPath}"`;
@@ -21,14 +18,13 @@ function ejecutarPowerShell(inputPath, outputPath) {
 
 async function convertirDocxAPdf(rutaDocx) {
   try {
-    // Validar existencia de carpeta de salida
+
     const outputDir = path.resolve("output");
     await fs.mkdir(outputDir, { recursive: true });
 
     const nombrePDF = path.basename(rutaDocx).replace(/\.docx$/i, ".pdf");
     const rutaSalida = path.join(outputDir, nombrePDF);
 
-    // Ejecutar conversión
     await ejecutarPowerShell(path.resolve(rutaDocx), rutaSalida);
 
     return nombrePDF;
