@@ -40,17 +40,8 @@ const convertirArchivo = (req, res) => {
 const mostrarDescarga = (req, res) => {
 
   const nombreArchivo = req.query.archivo;
-
   const rutaArchivo = path.resolve("output", nombreArchivo);
-
-  if (!fs.existsSync(rutaArchivo)) {
-    return res.status(404).json({
-      mensaje: MESSAGES.DOWNLOAD.NOT_FOUND
-    });
-  }
-
   return res.download(rutaArchivo);
-
 };
 
 module.exports = {
